@@ -1,17 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const TripPlannerPage = () => {
-  const [trips, setTrips] = useState([]);
+  const [trips, setTrips] = useState(() => {
+    const savedTrips = localStorage.getItem("trips");
+    return savedTrips ? JSON.parse(savedTrips) : [];
+  });
+
   const [location, setLocation] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
+  useEffect(() => {
+    localStorage.setItem("trips", JSON.stringify(trips));
+  }, [trips]);
+
   const addTrip = () => {
     if (!location || !startDate || !endDate) return;
-    setTrips([...trips, { location, startDate, endDate }]);
+    const newTrip = { location, startDate, endDate };
+    setTrips([...trips, newTrip]);
     setLocation("");
     setStartDate("");
     setEndDate("");
+  };
+
+  const deleteTrip = (indexToDelete) => {
+    const updatedTrips = trips.filter((_, index) => index !== indexToDelete);
+    setTrips(updatedTrips);
   };
 
   return (
@@ -45,16 +59,31 @@ const TripPlannerPage = () => {
       </div>
 
       <h2 className="text-xl font-semibold mb-3">Your Planned Trips</h2>
-      <ul className="space-y-2">
-        {trips.map((trip, index) => (
-          <li key={index} className="bg-gray-100 p-3 rounded shadow-sm">
-            <div className="font-medium">{trip.location}</div>
-            <div className="text-sm text-gray-600">
-              {trip.startDate} → {trip.endDate}
-            </div>
-          </li>
-        ))}
-      </ul>
+      {trips.length === 0 ? (
+        <p className="text-gray-500">No trips planned yet.</p>
+      ) : (
+        <ul className="space-y-2">
+          {trips.map((trip, index) => (
+            <li
+              key={index}
+              className="bg-white p-4 rounded shadow flex justify-between items-center"
+            >
+              <div>
+                <div className="font-medium">{trip.location}</div>
+                <div className="text-sm text-gray-600">
+                  {trip.startDate} {"\u2192"} {trip.endDate}
+                </div>
+              </div>
+              <button
+                onClick={() => deleteTrip(index)}
+                className="text-red-500 hover:text-red-700 text-sm"
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

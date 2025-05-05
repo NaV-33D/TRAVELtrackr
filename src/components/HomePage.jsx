@@ -1,22 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import BlurText from "./BlurText";
+
+const handleAnimationComplete = () => {
+  console.log("Animation completed!");
+};
 
 const servicesData = [
   {
     title: "Travel Tracking",
     description: "Track your travel expenses and set budgets for your trips.",
-    icon: "/track-icon.png", // Replace with actual icon/image path
+    icon: "Traveltracking.png",
   },
   {
     title: "Trip Planning",
     description:
       "Easily plan your trips with detailed itineraries and bookings.",
-    icon: "/plan-icon.png", // Replace with actual icon/image path
+    icon: "travelplan.webp",
   },
   {
     title: "Destination Guide",
     description: "Explore amazing travel destinations and find the best deals.",
-    icon: "/destination-icon.png", // Replace with actual icon/image path
+    icon: "destinationguide.png",
   },
 ];
 
@@ -48,29 +53,33 @@ const HomePage = () => {
   return (
     <>
       <section
-        className="bg-cover bg-center min-h-screen flex items-center justify-center text-white px-4 md:px-10 relative"
+        className="bg-cover bg-center min-h-screen flex items-center justify-center text-white px-4 md:px-10 relative m"
         style={{ backgroundImage: "url(/1.png)" }}
       >
-        {/* Overlay for cloudy/blurry bottom effect */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white to-transparent h-32"></div>
 
         <div className="text-center max-w-3xl z-10">
-          <h1 className="text-4xl md:text-6xl font-bold shadow-2xl mb-4">
-            Explore the World🌍
-          </h1>
+          <BlurText
+            text="Explore the World🌍"
+            delay={150}
+            animateBy="words"
+            direction="top"
+            onAnimationComplete={handleAnimationComplete}
+            className="text-5xl mb-4 font-semibold"
+          />
           <p className="text-lg md:text-xl mb-6">
             Find your next adventure with TravelTrackr
           </p>
           <div className="space-x-4">
             <Link
               to="/tracker"
-              className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-all"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-800 transition-all"
             >
               Start Tracking
             </Link>
             <Link
               to="/planner"
-              className="bg-[#00A651] text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-all"
+              className="bg-green-600  text-white px-6 py-3 rounded-lg hover:bg-green-800 transition-all"
             >
               Plan a Trip
             </Link>
@@ -87,16 +96,16 @@ const HomePage = () => {
           </p>
         </section>
 
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 py-16 px-4">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 py-16 px-4 ">
           {servicesData.map((service, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow-lg p-6 text-center"
+              className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transform transition duration-300 hover:scale-105"
             >
               <img
                 src={service.icon}
                 alt={service.title}
-                className="mx-auto mb-6 w-16 h-16"
+                className="mx-auto mb-6 w-50 h-50 rounded-lg"
               />
               <h3 className="text-2xl font-semibold mb-4">{service.title}</h3>
               <p className="text-gray-600">{service.description}</p>
@@ -137,7 +146,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <footer className="bg-gray-900 text-white py-12 px-6">
+      <footer className="bg-emerald-950 text-white py-12 px-6">
         <div className="container mx-auto grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-10">
           {/* Logo and description */}
           <div className="text-center md:text-left">

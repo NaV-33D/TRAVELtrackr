@@ -13,9 +13,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/tracker" element={<TrackerPage />} />
-        <Route path="/planner" element={<TripPlannerPage />} />
-        <Route path="/destinations" element={<DestinationsPage />} />
+        <Route path="/Tracker" element={<TrackerPage />} />
+        <Route path="/Planner" element={<TripPlannerPage />} />
+        <Route path="/Destinations" element={<DestinationsPage />} />
       </Routes>
       {/* Render Services Page below HomePage */}
     </Router>

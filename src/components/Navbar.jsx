@@ -6,7 +6,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-emerald-900 text-white shadow-md sticky top-0 z-50">
+    <nav className="bg-emerald-950 text-white shadow-md sticky top-0 z-50 ">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold tracking-wide">TravelTrackr</h1>
 
